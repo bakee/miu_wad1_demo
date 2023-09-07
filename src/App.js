@@ -1,20 +1,41 @@
 import './App.css';
+import React from 'react';
 
-function StudentRenderer({ count}) {
-  return (
-    <li className="item">
+class StudentRenderer extends React.Component {
 
-      {/* {count} {count > 1 ? "students" : "student"} */}
-      {count} student{count > 1 && "s"}
-    </li>
-  );
+  constructor(props) {
+    super(props);
+    this.state = {students: [
+      { name: 'Alice', age: 20 },
+      { name: 'Bob', age: 19 },
+      { name: 'Jimmy', age: 21 }
+    ]};
+  }
+
+  deleteStudent = (index) => {
+    //const students = [...this.state.students];
+    //const students = this.state.students;
+    //students.splice(index, 1);
+    //this.state.students.splice(index, 1);
+    this.state.students.push({name:'New student', age: 10});
+    this.setState({ student: this.state.students });
+  }
+
+
+  render() {
+    return (
+      <div>
+        {this.state.students.map((s, idx) => <p key={idx}>{s.name}</p>)}
+      <button onClick={this.deleteStudent}>Delete Student</button>
+      </div>
+    );
+  }
 }
 
 function App() {
   return (
     <div className="App">
-      <StudentRenderer count={7}  />
-      <StudentRenderer count={1}  />
+      <StudentRenderer/>
     </div>
   );
 }
